@@ -1,0 +1,627 @@
+MODULE main
+
+VAR
+
+    location: {m_s2in_1, m_s2out_1, m_s0p_1, m_1in_1, m_1out_1, m_6p_1, m_5p_1, m_7in_1, m_7out_1, m_s4p_1, m_s6in_1, m_s6out_1, m_10in_1, m_10out_1, m_9in_1, m_9out_1, m_3in_1, m_3out_1, m_s1p_1, m_12in_1, m_12out_1, m_8p_1, m_11in_1, m_11out_1};
+    m_s0p_1_choice: {0, 1, 2};
+    m_5p_1_choice: {0, 1, 2};
+    m_s1p_1_choice: {0, 1};
+
+
+    var_A: Integer;
+    var_B: Integer;
+    var_C: Integer;
+    var_D: Integer;
+    var_E: Integer;
+    var_F: Integer;
+    var_P: Integer;
+    var_Q: Integer;
+    var_R: Integer;
+    var_X: Integer;
+    var_Y: Integer;
+    var_Z: Integer;
+
+
+    C_start: {0};
+    P_start: {0};
+    Y_start: {0};
+    D_start: {0};
+    R_start: {0};
+    Z_start: {0};
+    B_start: {0};
+    E_start: {0};
+    X_start: {0};
+    Q_start: {0};
+    A_start: {0};
+    F_start: {0};
+    B_s5: {100};
+    A_10: {-1, 0, 1};
+    B_12: {-1, 0, 1};
+    C_7: {-3, -2, -1};
+    D_s3: {-1, 0, 1};
+    E_s2: {1, 2, 3};
+    F_11: {-1, 0, 1};
+    P_2: {-1, 0, 1};
+    Q_0: {-3, -2, -1};
+    R_1: {-1, 0, 1};
+    X_9: {-1, 0, 1};
+    Y_3: {-1, 0, 1};
+    Z_4: {1, 2, 3};
+
+ASSIGN
+    init(location) := m_s2in_1;
+    init(var_P) := P_start;
+    init(var_A) := A_start;
+    init(var_Q) := Q_start;
+    init(var_B) := B_start;
+    init(var_R) := R_start;
+    init(var_C) := C_start;
+    init(var_D) := D_start;
+    init(var_E) := E_start;
+    init(var_F) := F_start;
+    init(var_X) := X_start;
+    init(var_Y) := Y_start;
+    init(var_Z) := Z_start;
+
+
+    next(m_s0p_1_choice) := m_s0p_1_choice;
+    next(m_5p_1_choice) := m_5p_1_choice;
+    next(m_s1p_1_choice) := m_s1p_1_choice;
+
+TRANS
+(
+    (    (location = m_s2in_1) ->
+        (
+        next(location) = m_s2out_1 &
+        next(var_E) = var_E + E_s2 &
+        next(var_P) = var_P &
+        next(var_A) = var_A &
+        next(var_Q) = var_Q &
+        next(var_B) = var_B &
+        next(var_R) = var_R &
+        next(var_C) = var_C &
+        next(var_D) = var_D &
+        next(var_F) = var_F &
+        next(var_X) = var_X &
+        next(var_Y) = var_Y &
+        next(var_Z) = var_Z
+        )
+    )
+&
+
+    (    (location = m_s2out_1) ->
+        (
+        next(location) = m_s0p_1 &
+        next(var_D) = var_D + D_s3 &
+        next(var_P) = var_P &
+        next(var_A) = var_A &
+        next(var_Q) = var_Q &
+        next(var_B) = var_B &
+        next(var_R) = var_R &
+        next(var_C) = var_C &
+        next(var_E) = var_E &
+        next(var_F) = var_F &
+        next(var_X) = var_X &
+        next(var_Y) = var_Y &
+        next(var_Z) = var_Z
+        )
+    )
+&
+
+    (    ((location = m_s0p_1) & (m_s0p_1_choice = 0)) ->
+        (
+        next(location) = m_1in_1 &
+        next(var_P) = var_P &
+        next(var_A) = var_A &
+        next(var_Q) = var_Q &
+        next(var_B) = var_B &
+        next(var_R) = var_R &
+        next(var_C) = var_C &
+        next(var_D) = var_D &
+        next(var_E) = var_E &
+        next(var_F) = var_F &
+        next(var_X) = var_X &
+        next(var_Y) = var_Y &
+        next(var_Z) = var_Z
+        )
+    )
+&
+
+    (    ((location = m_s0p_1) & (m_s0p_1_choice = 1)) ->
+        (
+        next(location) = m_3in_1 &
+        next(var_P) = var_P &
+        next(var_A) = var_A &
+        next(var_Q) = var_Q &
+        next(var_B) = var_B &
+        next(var_R) = var_R &
+        next(var_C) = var_C &
+        next(var_D) = var_D &
+        next(var_E) = var_E &
+        next(var_F) = var_F &
+        next(var_X) = var_X &
+        next(var_Y) = var_Y &
+        next(var_Z) = var_Z
+        )
+    )
+&
+
+    (    ((location = m_s0p_1) & (m_s0p_1_choice = 2)) ->
+        (
+        next(location) = m_s1p_1 &
+        next(var_P) = var_P &
+        next(var_A) = var_A &
+        next(var_Q) = var_Q &
+        next(var_B) = var_B &
+        next(var_R) = var_R &
+        next(var_C) = var_C &
+        next(var_D) = var_D &
+        next(var_E) = var_E &
+        next(var_F) = var_F &
+        next(var_X) = var_X &
+        next(var_Y) = var_Y &
+        next(var_Z) = var_Z
+        )
+    )
+&
+
+    (    (location = m_1in_1) ->
+        (
+        next(location) = m_1out_1 &
+        next(var_R) = var_R + R_1 &
+        next(var_P) = var_P &
+        next(var_A) = var_A &
+        next(var_Q) = var_Q &
+        next(var_B) = var_B &
+        next(var_C) = var_C &
+        next(var_D) = var_D &
+        next(var_E) = var_E &
+        next(var_F) = var_F &
+        next(var_X) = var_X &
+        next(var_Y) = var_Y &
+        next(var_Z) = var_Z
+        )
+    )
+&
+
+    (    (location = m_1out_1) ->
+        (
+        next(location) = m_6p_1 &
+        next(var_P) = var_P + P_2 &
+        next(var_A) = var_A &
+        next(var_Q) = var_Q &
+        next(var_B) = var_B &
+        next(var_R) = var_R &
+        next(var_C) = var_C &
+        next(var_D) = var_D &
+        next(var_E) = var_E &
+        next(var_F) = var_F &
+        next(var_X) = var_X &
+        next(var_Y) = var_Y &
+        next(var_Z) = var_Z
+        )
+    )
+&
+
+    (    (location = m_6p_1) ->
+        (
+        next(location) = m_5p_1 &
+        next(var_P) = var_P &
+        next(var_A) = var_A &
+        next(var_Q) = var_Q &
+        next(var_B) = var_B &
+        next(var_R) = var_R &
+        next(var_C) = var_C &
+        next(var_D) = var_D &
+        next(var_E) = var_E &
+        next(var_F) = var_F &
+        next(var_X) = var_X &
+        next(var_Y) = var_Y &
+        next(var_Z) = var_Z
+        )
+    )
+&
+
+    (    ((location = m_5p_1) & (m_5p_1_choice = 0)) ->
+        (
+        next(location) = m_7in_1 &
+        next(var_P) = var_P &
+        next(var_A) = var_A &
+        next(var_Q) = var_Q &
+        next(var_B) = var_B &
+        next(var_R) = var_R &
+        next(var_C) = var_C &
+        next(var_D) = var_D &
+        next(var_E) = var_E &
+        next(var_F) = var_F &
+        next(var_X) = var_X &
+        next(var_Y) = var_Y &
+        next(var_Z) = var_Z
+        )
+    )
+&
+
+    (    ((location = m_5p_1) & (m_5p_1_choice = 1)) ->
+        (
+        next(location) = m_10in_1 &
+        next(var_P) = var_P &
+        next(var_A) = var_A &
+        next(var_Q) = var_Q &
+        next(var_B) = var_B &
+        next(var_R) = var_R &
+        next(var_C) = var_C &
+        next(var_D) = var_D &
+        next(var_E) = var_E &
+        next(var_F) = var_F &
+        next(var_X) = var_X &
+        next(var_Y) = var_Y &
+        next(var_Z) = var_Z
+        )
+    )
+&
+
+    (    ((location = m_5p_1) & (m_5p_1_choice = 2)) ->
+        (
+        next(location) = m_9in_1 &
+        next(var_P) = var_P &
+        next(var_A) = var_A &
+        next(var_Q) = var_Q &
+        next(var_B) = var_B &
+        next(var_R) = var_R &
+        next(var_C) = var_C &
+        next(var_D) = var_D &
+        next(var_E) = var_E &
+        next(var_F) = var_F &
+        next(var_X) = var_X &
+        next(var_Y) = var_Y &
+        next(var_Z) = var_Z
+        )
+    )
+&
+
+    (    (location = m_7in_1) ->
+        (
+        next(location) = m_7out_1 &
+        next(var_C) = var_C + C_7 &
+        next(var_P) = var_P &
+        next(var_A) = var_A &
+        next(var_Q) = var_Q &
+        next(var_B) = var_B &
+        next(var_R) = var_R &
+        next(var_D) = var_D &
+        next(var_E) = var_E &
+        next(var_F) = var_F &
+        next(var_X) = var_X &
+        next(var_Y) = var_Y &
+        next(var_Z) = var_Z
+        )
+    )
+&
+
+    (    (location = m_7out_1) ->
+        (
+        next(location) = m_s4p_1 &
+        next(var_P) = var_P &
+        next(var_A) = var_A &
+        next(var_Q) = var_Q &
+        next(var_B) = var_B &
+        next(var_R) = var_R &
+        next(var_C) = var_C &
+        next(var_D) = var_D &
+        next(var_E) = var_E &
+        next(var_F) = var_F &
+        next(var_X) = var_X &
+        next(var_Y) = var_Y &
+        next(var_Z) = var_Z
+        )
+    )
+&
+
+    (    (location = m_s4p_1) ->
+        (
+        next(location) = m_s6in_1 &
+        next(var_B) = var_B + B_s5 &
+        next(var_P) = var_P &
+        next(var_A) = var_A &
+        next(var_Q) = var_Q &
+        next(var_R) = var_R &
+        next(var_C) = var_C &
+        next(var_D) = var_D &
+        next(var_E) = var_E &
+        next(var_F) = var_F &
+        next(var_X) = var_X &
+        next(var_Y) = var_Y &
+        next(var_Z) = var_Z
+        )
+    )
+&
+
+    (    (location = m_s6in_1) ->
+        (
+        next(location) = m_s6out_1 &
+        next(var_C) = var_Z+1 &
+        next(var_P) = var_P &
+        next(var_A) = var_A &
+        next(var_Q) = var_Q &
+        next(var_B) = var_B &
+        next(var_R) = var_R &
+        next(var_D) = var_D &
+        next(var_E) = var_E &
+        next(var_F) = var_F &
+        next(var_X) = var_X &
+        next(var_Y) = var_Y &
+        next(var_Z) = var_Z
+        )
+    )
+&
+
+    (    (location = m_s6out_1) ->
+        (
+        next(location) = m_s6out_1 &
+        next(var_P) = var_P &
+        next(var_A) = var_A &
+        next(var_Q) = var_Q &
+        next(var_B) = var_B &
+        next(var_R) = var_R &
+        next(var_C) = var_C &
+        next(var_D) = var_D &
+        next(var_E) = var_E &
+        next(var_F) = var_F &
+        next(var_X) = var_X &
+        next(var_Y) = var_Y &
+        next(var_Z) = var_Z
+        )
+    )
+&
+
+    (    (location = m_10in_1) ->
+        (
+        next(location) = m_10out_1 &
+        next(var_A) = var_A + A_10 &
+        next(var_P) = var_P &
+        next(var_Q) = var_Q &
+        next(var_B) = var_B &
+        next(var_R) = var_R &
+        next(var_C) = var_C &
+        next(var_D) = var_D &
+        next(var_E) = var_E &
+        next(var_F) = var_F &
+        next(var_X) = var_X &
+        next(var_Y) = var_Y &
+        next(var_Z) = var_Z
+        )
+    )
+&
+
+    (    (location = m_10out_1) ->
+        (
+        next(location) = m_s4p_1 &
+        next(var_P) = var_P &
+        next(var_A) = var_A &
+        next(var_Q) = var_Q &
+        next(var_B) = var_B &
+        next(var_R) = var_R &
+        next(var_C) = var_C &
+        next(var_D) = var_D &
+        next(var_E) = var_E &
+        next(var_F) = var_F &
+        next(var_X) = var_X &
+        next(var_Y) = var_Y &
+        next(var_Z) = var_Z
+        )
+    )
+&
+
+    (    (location = m_9in_1) ->
+        (
+        next(location) = m_9out_1 &
+        next(var_X) = var_X + X_9 &
+        next(var_P) = var_P &
+        next(var_A) = var_A &
+        next(var_Q) = var_Q &
+        next(var_B) = var_B &
+        next(var_R) = var_R &
+        next(var_C) = var_C &
+        next(var_D) = var_D &
+        next(var_E) = var_E &
+        next(var_F) = var_F &
+        next(var_Y) = var_Y &
+        next(var_Z) = var_Z
+        )
+    )
+&
+
+    (    (location = m_9out_1) ->
+        (
+        next(location) = m_s4p_1 &
+        next(var_P) = var_P &
+        next(var_A) = var_A &
+        next(var_Q) = var_Q &
+        next(var_B) = var_B &
+        next(var_R) = var_R &
+        next(var_C) = var_C &
+        next(var_D) = var_D &
+        next(var_E) = var_E &
+        next(var_F) = var_F &
+        next(var_X) = var_X &
+        next(var_Y) = var_Y &
+        next(var_Z) = var_Z
+        )
+    )
+&
+
+    (    (location = m_3in_1) ->
+        (
+        next(location) = m_3out_1 &
+        next(var_Y) = var_Y + Y_3 &
+        next(var_P) = var_P &
+        next(var_A) = var_A &
+        next(var_Q) = var_Q &
+        next(var_B) = var_B &
+        next(var_R) = var_R &
+        next(var_C) = var_C &
+        next(var_D) = var_D &
+        next(var_E) = var_E &
+        next(var_F) = var_F &
+        next(var_X) = var_X &
+        next(var_Z) = var_Z
+        )
+    )
+&
+
+    (    (location = m_3out_1) ->
+        (
+        next(location) = m_6p_1 &
+        next(var_Z) = var_Z + Z_4 &
+        next(var_P) = var_P &
+        next(var_A) = var_A &
+        next(var_Q) = var_Q &
+        next(var_B) = var_B &
+        next(var_R) = var_R &
+        next(var_C) = var_C &
+        next(var_D) = var_D &
+        next(var_E) = var_E &
+        next(var_F) = var_F &
+        next(var_X) = var_X &
+        next(var_Y) = var_Y
+        )
+    )
+&
+
+    (    ((location = m_s1p_1) & (m_s1p_1_choice = 0)) ->
+        (
+        next(location) = m_12in_1 &
+        next(var_P) = var_P &
+        next(var_A) = var_A &
+        next(var_Q) = var_Q &
+        next(var_B) = var_B &
+        next(var_R) = var_R &
+        next(var_C) = var_C &
+        next(var_D) = var_D &
+        next(var_E) = var_E &
+        next(var_F) = var_F &
+        next(var_X) = var_X &
+        next(var_Y) = var_Y &
+        next(var_Z) = var_Z
+        )
+    )
+&
+
+    (    ((location = m_s1p_1) & (m_s1p_1_choice = 1)) ->
+        (
+        next(location) = m_11in_1 &
+        next(var_P) = var_P &
+        next(var_A) = var_A &
+        next(var_Q) = var_Q &
+        next(var_B) = var_B &
+        next(var_R) = var_R &
+        next(var_C) = var_C &
+        next(var_D) = var_D &
+        next(var_E) = var_E &
+        next(var_F) = var_F &
+        next(var_X) = var_X &
+        next(var_Y) = var_Y &
+        next(var_Z) = var_Z
+        )
+    )
+&
+
+    (    (location = m_12in_1) ->
+        (
+        next(location) = m_12out_1 &
+        next(var_B) = var_B + B_12 &
+        next(var_P) = var_P &
+        next(var_A) = var_A &
+        next(var_Q) = var_Q &
+        next(var_R) = var_R &
+        next(var_C) = var_C &
+        next(var_D) = var_D &
+        next(var_E) = var_E &
+        next(var_F) = var_F &
+        next(var_X) = var_X &
+        next(var_Y) = var_Y &
+        next(var_Z) = var_Z
+        )
+    )
+&
+
+    (    (location = m_12out_1) ->
+        (
+        next(location) = m_8p_1 &
+        next(var_P) = var_P &
+        next(var_A) = var_A &
+        next(var_Q) = var_Q &
+        next(var_B) = var_B &
+        next(var_R) = var_R &
+        next(var_C) = var_C &
+        next(var_D) = var_D &
+        next(var_E) = var_E &
+        next(var_F) = var_F &
+        next(var_X) = var_X &
+        next(var_Y) = var_Y &
+        next(var_Z) = var_Z
+        )
+    )
+&
+
+    (    (location = m_8p_1) ->
+        (
+        next(location) = m_6p_1 &
+        next(var_Q) = var_Q + Q_0 &
+        next(var_P) = var_P &
+        next(var_A) = var_A &
+        next(var_B) = var_B &
+        next(var_R) = var_R &
+        next(var_C) = var_C &
+        next(var_D) = var_D &
+        next(var_E) = var_E &
+        next(var_F) = var_F &
+        next(var_X) = var_X &
+        next(var_Y) = var_Y &
+        next(var_Z) = var_Z
+        )
+    )
+&
+
+    (    (location = m_11in_1) ->
+        (
+        next(location) = m_11out_1 &
+        next(var_F) = var_F + F_11 &
+        next(var_P) = var_P &
+        next(var_A) = var_A &
+        next(var_Q) = var_Q &
+        next(var_B) = var_B &
+        next(var_R) = var_R &
+        next(var_C) = var_C &
+        next(var_D) = var_D &
+        next(var_E) = var_E &
+        next(var_X) = var_X &
+        next(var_Y) = var_Y &
+        next(var_Z) = var_Z
+        )
+    )
+&
+
+    (    (location = m_11out_1) ->
+        (
+        next(location) = m_8p_1 &
+        next(var_P) = var_P &
+        next(var_A) = var_A &
+        next(var_Q) = var_Q &
+        next(var_B) = var_B &
+        next(var_R) = var_R &
+        next(var_C) = var_C &
+        next(var_D) = var_D &
+        next(var_E) = var_E &
+        next(var_F) = var_F &
+        next(var_X) = var_X &
+        next(var_Y) = var_Y &
+        next(var_Z) = var_Z
+        )
+    )
+)
+
+
+LTLSPEC G((var_A>var_X)->!(var_C>var_Z) U ((var_B - var_A)>var_Y));
+LTLSPEC G((var_D>var_P)->((var_F - var_D)>var_R) V (var_E>var_Q));
+

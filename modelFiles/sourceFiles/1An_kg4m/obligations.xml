@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<Obligations>
+    <Achievement
+                id="0"
+                identifier="">
+	<Requirement Condition = "B-A>Y"/>
+	<Trigger Condition = "A>X"/>
+	<Deadline Condition = "C>Z"/>
+    </Achievement>
+    <Maintenance
+                id="1"
+                identifier="">
+	<Requirement Condition = "E>Q"/>
+	<Trigger Condition = "D>P"/>
+	<Deadline Condition = "F-D>R"/>
+    </Maintenance>
+</Obligations>

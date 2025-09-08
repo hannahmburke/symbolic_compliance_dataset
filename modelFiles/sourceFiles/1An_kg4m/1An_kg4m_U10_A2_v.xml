@@ -1,0 +1,226 @@
+<?xml version="1.0"?>
+
+<Annotations>
+	<Transitions>
+		<Transition ID="start">
+			<Outcome
+				variable = "C"
+				identifier = "null"
+				operation =  ":="
+				value = "0"/>
+			<Outcome
+				variable = "P"
+				identifier = "null"
+				operation =  ":="
+				value = "0"/>
+			<Outcome
+				variable = "Y"
+				identifier = "null"
+				operation =  ":="
+				value = "0"/>
+			<Outcome
+				variable = "D"
+				identifier = "null"
+				operation =  ":="
+				value = "0"/>
+			<Outcome
+				variable = "R"
+				identifier = "null"
+				operation =  ":="
+				value = "0"/>
+			<Outcome
+				variable = "Z"
+				identifier = "null"
+				operation =  ":="
+				value = "0"/>
+			<Outcome
+				variable = "B"
+				identifier = "null"
+				operation =  ":="
+				value = "0"/>
+			<Outcome
+				variable = "E"
+				identifier = "null"
+				operation =  ":="
+				value = "0"/>
+			<Outcome
+				variable = "X"
+				identifier = "null"
+				operation =  ":="
+				value = "0"/>
+			<Outcome
+				variable = "Q"
+				identifier = "null"
+				operation =  ":="
+				value = "0"/>
+			<Outcome
+				variable = "A"
+				identifier = "null"
+				operation =  ":="
+				value = "0"/>
+			<Outcome
+				variable = "F"
+				identifier = "null"
+				operation =  ":="
+				value = "0"/>
+		</Transition>
+		<Transition ID="s5">
+			<Outcome
+				variable = "B"
+				identifier = "null"
+				operation =  ":="
+                value = "Y"/>
+		</Transition>
+		<Transition ID="s6">
+			<Outcome
+				variable = "C"
+				identifier = "null"
+				operation =  ":="
+				value = "Z+1"/>
+		</Transition>
+		<Transition ID="9">
+			<Outcome
+				variable = "A"
+				identifier = "null"
+				operation =  "+"
+				value = "{-4, -3, -2, -1, 0, 1, 2, 3, 4, 5}"/>
+			<Outcome
+				variable = "B"
+				identifier = "null"
+				operation =  "+"
+				value = "{-4, -3, -2, -1, 0, 1, 2, 3, 4, 5}"/>
+		</Transition>
+		<Transition ID="0">
+			<Outcome
+				variable = "A"
+				identifier = "null"
+				operation =  "+"
+				value = "{-4, -3, -2, -1, 0, 1, 2, 3, 4, 5}"/>
+			<Outcome
+				variable = "B"
+				identifier = "null"
+				operation =  "+"
+				value = "{-4, -3, -2, -1, 0, 1, 2, 3, 4, 5}"/>
+		</Transition>
+		<Transition ID="4">
+			<Outcome
+				variable = "C"
+				identifier = "null"
+				operation =  "+"
+				value = "{-10, -9, -8, -7, -6, -5, -4, -3, -2, -1}"/>
+			<Outcome
+				variable = "Z"
+				identifier = "null"
+				operation =  "+"
+				value = "{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}"/>
+		</Transition>
+		<Transition ID="12">
+			<Outcome
+				variable = "D"
+				identifier = "null"
+				operation =  "+"
+				value = "{-4, -3, -2, -1, 0, 1, 2, 3, 4, 5}"/>
+			<Outcome
+				variable = "C"
+				identifier = "null"
+				operation =  "+"
+				value = "{-10, -9, -8, -7, -6, -5, -4, -3, -2, -1}"/>
+		</Transition>
+		<Transition ID="s2">
+			<Outcome
+				variable = "E"
+				identifier = "null"
+				operation =  "+"
+				value = "{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}"/>
+			<Outcome
+				variable = "R"
+				identifier = "null"
+				operation =  "+"
+				value = "{-4, -3, -2, -1, 0, 1, 2, 3, 4, 5}"/>
+		</Transition>
+		<Transition ID="10">
+			<Outcome
+				variable = "X"
+				identifier = "null"
+				operation =  "+"
+				value = "{-4, -3, -2, -1, 0, 1, 2, 3, 4, 5}"/>
+			<Outcome
+				variable = "F"
+				identifier = "null"
+				operation =  "+"
+				value = "{-4, -3, -2, -1, 0, 1, 2, 3, 4, 5}"/>
+		</Transition>
+		<Transition ID="11">
+			<Outcome
+				variable = "P"
+				identifier = "null"
+				operation =  "+"
+				value = "{-4, -3, -2, -1, 0, 1, 2, 3, 4, 5}"/>
+			<Outcome
+				variable = "E"
+				identifier = "null"
+				operation =  "+"
+				value = "{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}"/>
+		</Transition>
+		<Transition ID="3">
+			<Outcome
+				variable = "Y"
+				identifier = "null"
+				operation =  "+"
+				value = "{-4, -3, -2, -1, 0, 1, 2, 3, 4, 5}"/>
+			<Outcome
+				variable = "Q"
+				identifier = "null"
+				operation =  "+"
+				value = "{-10, -9, -8, -7, -6, -5, -4, -3, -2, -1}"/>
+		</Transition>
+		<Transition ID="2">
+			<Outcome
+				variable = "R"
+				identifier = "null"
+				operation =  "+"
+				value = "{-4, -3, -2, -1, 0, 1, 2, 3, 4, 5}"/>
+			<Outcome
+				variable = "D"
+				identifier = "null"
+				operation =  "+"
+				value = "{-4, -3, -2, -1, 0, 1, 2, 3, 4, 5}"/>
+		</Transition>
+		<Transition ID="s3">
+			<Outcome
+				variable = "P"
+				identifier = "null"
+				operation =  "+"
+				value = "{-4, -3, -2, -1, 0, 1, 2, 3, 4, 5}"/>
+			<Outcome
+				variable = "X"
+				identifier = "null"
+				operation =  "+"
+				value = "{-4, -3, -2, -1, 0, 1, 2, 3, 4, 5}"/>
+		</Transition>
+		<Transition ID="1">
+			<Outcome
+				variable = "Y"
+				identifier = "null"
+				operation =  "+"
+				value = "{-4, -3, -2, -1, 0, 1, 2, 3, 4, 5}"/>
+			<Outcome
+				variable = "F"
+				identifier = "null"
+				operation =  "+"
+				value = "{-4, -3, -2, -1, 0, 1, 2, 3, 4, 5}"/>
+		</Transition>
+		<Transition ID="7">
+			<Outcome
+				variable = "Q"
+				identifier = "null"
+				operation =  "+"
+				value = "{-10, -9, -8, -7, -6, -5, -4, -3, -2, -1}"/>
+			<Outcome
+				variable = "Z"
+				identifier = "null"
+				operation =  "+"
+				value = "{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}"/>
+		</Transition>
+	</Transitions>
+</Annotations>

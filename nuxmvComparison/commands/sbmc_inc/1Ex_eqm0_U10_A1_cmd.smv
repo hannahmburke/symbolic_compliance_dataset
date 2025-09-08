@@ -1,0 +1,6 @@
+read_model
+flatten_hierarchy
+encode_variables
+go_msat
+msat_check_ltlspec_sbmc_inc -k 6
+quit
