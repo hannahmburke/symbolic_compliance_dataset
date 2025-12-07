@@ -1,0 +1,3 @@
+﻿experiment,execution (ms),shared prefix (ms),ic3 (ms),bmc (ms),sbmc_inc (ms)
+example,256.94,114.49,5224.73,2542.21,750.42
+example_v,197.71,81.71,5468.91,1623.93,610.52

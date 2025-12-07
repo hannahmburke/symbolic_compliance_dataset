@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<Obligations>
+    <Maintenance
+                id="idPointsMin"
+                identifier="0">
+        <Requirement Condition = "age==-1"/>
+        <Trigger Condition = "age==-1"/>
+        <Deadline Condition = "idPoints&gt;=100"/>
+    </Maintenance>
+        <Achievement
+                id="clearData"
+                identifier="0">
+        <Requirement Condition = "pDoc==0 &amp; sDoc==0"/>
+        <Trigger Condition = "pDoc&gt;0 | sDoc&gt;0"/>
+        <Deadline Condition = "false"/>
+    </Achievement>
+     <Maintenance
+                id="minimiseData"
+                identifier="0">
+        <Requirement Condition = "idPoints&lt;=165 &amp; pDoc&lt;=1 &amp; pDoc+sDoc &lt;=4"/>
+        <Trigger Condition = "true"/>
+        <Deadline Condition = "false"/>
+    </Maintenance>
+    <Maintenance
+                id="consent"
+                identifier="0">
+        <Requirement Condition = "parentConsent==true | accountActive==false"/>
+        <Trigger Condition = "age &lt; 16"/>
+        <Deadline Condition = "age &gt;= 16"/>
+    </Maintenance>
+</Obligations>

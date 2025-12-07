@@ -1,0 +1,249 @@
+MODULE main
+
+VAR
+
+    location: {m_source_1, m_p0_1, m_pFail_1, m_p7_1, m_p8_1, m_p1_1, m_p2_1, m_p6_1, m_p5_1};
+    m_p0_1_choice: {0, 1, 2};
+    remaining_choice: {0, 2};
+
+
+    var_sDoc: Integer;
+    var_parentConsent: {0,1};
+    var_accountActive: {0,1};
+    var_idPoints: Integer;
+    var_pDoc: Integer;
+    var_age: Integer;
+
+
+    parentConsent_start: {0};
+    sDoc_start: {0};
+    age_start: {-1};
+    idPoints_start: {0};
+    accountActive_start: {0};
+    pDoc_start: {0};
+    parentConsent_parConsent: {1, 0};
+    accountActive_accCreate: {1};
+    accountActive_fail: {0};
+    age_ageCalc: {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125};
+    pDoc_pDoc: {1};
+    idPoints_pDoc: {70};
+    idPoints_sDoc: {25, 35, 40};
+    sDoc_sDoc: {1};
+    sDoc_clearData: {0};
+    idPoints_clearData: {0};
+    pDoc_clearData: {0};
+
+ASSIGN
+    init(location) := m_source_1;
+    init(var_sDoc) := sDoc_start;
+    init(var_parentConsent) := parentConsent_start;
+    init(var_accountActive) := accountActive_start;
+    init(var_idPoints) := idPoints_start;
+    init(var_pDoc) := pDoc_start;
+    init(var_age) := age_start;
+
+TRANS
+(
+    (    (location = m_source_1) ->
+        (
+        next(location) = m_p0_1 &
+        next(var_sDoc) = var_sDoc &
+        next(var_parentConsent) = var_parentConsent &
+        next(var_accountActive) = var_accountActive &
+        next(var_idPoints) = var_idPoints &
+        next(var_pDoc) = var_pDoc &
+        next(var_age) = var_age
+        )
+    )
+&
+
+    (    ((location = m_p0_1) & (m_p0_1_choice = 0)) ->
+        (
+        next(location) = m_pFail_1 &
+        next(var_sDoc) = var_sDoc &
+        next(var_parentConsent) = var_parentConsent &
+        next(var_accountActive) = var_accountActive &
+        next(var_idPoints) = var_idPoints &
+        next(var_pDoc) = var_pDoc &
+        next(var_age) = var_age
+        )
+    )
+&
+
+    (    ((location = m_p0_1) & (var_pDoc=0) & (m_p0_1_choice = 1)) ->
+        (
+        next(location) = m_p1_1 &
+        next(var_pDoc) = var_pDoc + pDoc_pDoc &
+        next(var_idPoints) = var_idPoints + idPoints_pDoc &
+        next(var_sDoc) = var_sDoc &
+        next(var_parentConsent) = var_parentConsent &
+        next(var_accountActive) = var_accountActive &
+        next(var_age) = var_age
+        )
+    )
+&
+
+    (    ((location = m_p0_1) & (m_p0_1_choice = 2)) ->
+        (
+        next(location) = m_p1_1 &
+        next(var_idPoints) = var_idPoints + idPoints_sDoc &
+        next(var_sDoc) = var_sDoc + sDoc_sDoc &
+        next(var_parentConsent) = var_parentConsent &
+        next(var_accountActive) = var_accountActive &
+        next(var_pDoc) = var_pDoc &
+        next(var_age) = var_age
+        )
+    )
+&
+
+    (    (location = m_pFail_1) ->
+        (
+        next(location) = m_p7_1 &
+        next(var_accountActive) = accountActive_fail &
+        next(var_sDoc) = var_sDoc &
+        next(var_parentConsent) = var_parentConsent &
+        next(var_idPoints) = var_idPoints &
+        next(var_pDoc) = var_pDoc &
+        next(var_age) = var_age
+        )
+    )
+&
+
+    (    (location = m_p7_1) ->
+        (
+        next(location) = m_p8_1 &
+        next(var_sDoc) = sDoc_clearData &
+        next(var_idPoints) = idPoints_clearData &
+        next(var_pDoc) = pDoc_clearData &
+        next(var_parentConsent) = var_parentConsent &
+        next(var_accountActive) = var_accountActive &
+        next(var_age) = var_age
+        )
+    )
+&
+
+    (    (location = m_p8_1) ->
+        (
+        next(location) = m_p8_1 &
+        next(var_sDoc) = var_sDoc &
+        next(var_parentConsent) = var_parentConsent &
+        next(var_accountActive) = var_accountActive &
+        next(var_idPoints) = var_idPoints &
+        next(var_pDoc) = var_pDoc &
+        next(var_age) = var_age
+        )
+    )
+&
+
+    (    ((location = m_p1_1) & (var_idPoints>=100)) ->
+        (
+        next(location) = m_p2_1 &
+        next(var_age) = age_ageCalc &
+        next(var_sDoc) = var_sDoc &
+        next(var_parentConsent) = var_parentConsent &
+        next(var_accountActive) = var_accountActive &
+        next(var_idPoints) = var_idPoints &
+        next(var_pDoc) = var_pDoc
+        )
+    )
+&
+
+    (    ((location = m_p1_1) & (var_idPoints<100)) ->
+        (
+        next(location) = m_p0_1 &
+        next(var_sDoc) = var_sDoc &
+        next(var_parentConsent) = var_parentConsent &
+        next(var_accountActive) = var_accountActive &
+        next(var_idPoints) = var_idPoints &
+        next(var_pDoc) = var_pDoc &
+        next(var_age) = var_age
+        )
+    )
+&
+
+    (    ((location = m_p2_1) & (var_age>=18)) ->
+        (
+        next(location) = m_p6_1 &
+        next(var_sDoc) = var_sDoc &
+        next(var_parentConsent) = var_parentConsent &
+        next(var_accountActive) = var_accountActive &
+        next(var_idPoints) = var_idPoints &
+        next(var_pDoc) = var_pDoc &
+        next(var_age) = var_age
+        )
+    )
+&
+
+    (    ((location = m_p2_1) & (var_age<18)) ->
+        (
+        next(location) = m_p5_1 &
+        next(var_parentConsent) = parentConsent_parConsent &
+        next(var_sDoc) = var_sDoc &
+        next(var_accountActive) = var_accountActive &
+        next(var_idPoints) = var_idPoints &
+        next(var_pDoc) = var_pDoc &
+        next(var_age) = var_age
+        )
+    )
+&
+
+    (    (location = m_p6_1) ->
+        (
+        next(location) = m_p7_1 &
+        next(var_accountActive) = accountActive_accCreate &
+        next(var_sDoc) = var_sDoc &
+        next(var_parentConsent) = var_parentConsent &
+        next(var_idPoints) = var_idPoints &
+        next(var_pDoc) = var_pDoc &
+        next(var_age) = var_age
+        )
+    )
+&
+
+    (    ((location = m_p5_1) & (var_parentConsent=0)) ->
+        (
+        next(location) = m_pFail_1 &
+        next(var_sDoc) = var_sDoc &
+        next(var_parentConsent) = var_parentConsent &
+        next(var_accountActive) = var_accountActive &
+        next(var_idPoints) = var_idPoints &
+        next(var_pDoc) = var_pDoc &
+        next(var_age) = var_age
+        )
+    )
+&
+
+    (    ((location = m_p5_1) & (var_parentConsent=1)) ->
+        (
+        next(location) = m_p6_1 &
+        next(var_sDoc) = var_sDoc &
+        next(var_parentConsent) = var_parentConsent &
+        next(var_accountActive) = var_accountActive &
+        next(var_idPoints) = var_idPoints &
+        next(var_pDoc) = var_pDoc &
+        next(var_age) = var_age
+        )
+    )
+
+&
+
+    (    ((location = m_p0_1) & !(var_pDoc=0) & (m_p0_1_choice = 1)) ->
+        (
+        next(location) = location &
+        next(m_p0_1_choice) = remaining_choice &
+        next(var_sDoc) = var_sDoc &
+        next(var_parentConsent) = var_parentConsent &
+        next(var_accountActive) = var_accountActive &
+        next(var_idPoints) = var_idPoints &
+        next(var_pDoc) = var_pDoc &
+        next(var_age) = var_age
+        )
+    )
+)
+
+
+LTLSPEC G(((var_pDoc>0)|(var_sDoc>0))->!(1<0) U ((var_pDoc=0)&(var_sDoc=0)));
+LTLSPEC G((var_age=-1)->(var_idPoints>=100) V (var_age=-1));
+LTLSPEC G((1>0)->(1<0) V (((var_idPoints<=160)&(var_pDoc<=1))&((var_pDoc+var_sDoc)<=4)));
+LTLSPEC G((var_age<16)->(var_age>=16) V ((var_parentConsent=1)|(var_accountActive=0)));
+

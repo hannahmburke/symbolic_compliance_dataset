@@ -6,6 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import compliance.obligations.ModelObligation;
 import compliance.obligations.Obligation.ObligationConditionType;
@@ -13,8 +15,10 @@ import compliance.obligations.Obligation.ObligationTypes;
 import datatypes.attributes.Attribute;
 import datatypes.domain.DomainInstance;
 import datatypes.functions.expressions.LambdaExpression;
+import datatypes.types.BoolType;
 import datatypes.types.DataType;
 import datatypes.types.IntType;
+import datatypes.values.BoolVal;
 import datatypes.values.Value;
 import datatypes.values.Value.Operation;
 import kotlin.jvm.internal.Lambda;
@@ -26,6 +30,8 @@ import model.annotations.ExpressionAnnotation;
 import model.annotations.ValueAnnotation;
 import model.executions.Execution;
 import model.executions.ExecutionRestrictor;
+import model.executions.ExecutionsGenerator;
+import model.guards.Guards;
 import model.states.SimpleState;
 import model.states.SimpleState.StateRetrievalException;
 import nl.rug.ds.bpm.petrinet.interfaces.element.TransitionI;
@@ -40,6 +46,8 @@ import nl.rug.ds.bpm.util.exception.IllegalMarkingException;
 import javax.xml.crypto.Data;
 
 import static model.executions.Execution.id;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /*
 converts the experiments to NuXmv files
@@ -73,8 +81,11 @@ public class NuXmvConvertor {
 			annotations = annotations.replaceAll("\\./", dir);
 			String obligations = data[3];
 			obligations = obligations.replaceAll("\\./", dir);
+			if (!data[0].contains("example")) continue;
 
 			Model m = new Model(model, annotations, obligations);
+			m.setAllExecutions(ExecutionsGenerator.generateExecutions(m.getPn(),
+					new ExecutionRestrictor.FairnessRestrictor(m.getPn(), 3)));
 
 			String experimentName = data[0].replace("./descriptions/", "").replace(".txt", "");
 
@@ -128,7 +139,7 @@ public class NuXmvConvertor {
 		List<String> constants = new ArrayList<>();
 
 		// reachability graph for petrinet. contains all possible markings in the graph, and their subsequent edges
-		Map<String, List<Map.Entry<TransitionI, MarkingI>>> markings = buildReachabilityGraph(m.getPn());
+		Map<String, Map.Entry<Boolean, List<Map.Entry<TransitionI, MarkingI>>>> markings = buildReachabilityGraph(m.getPn(), m.getTGMap());
 
 		// get locations
 		String locations = "location: {";
@@ -145,12 +156,12 @@ public class NuXmvConvertor {
 		// get decision points. ie reachability nodes with multiple edges
 		String decPoints = "";
 		for (String marking : markings.keySet()) {
-			if (markings.get(marking).size() > 1) {
+			if (!markings.get(marking).getKey()) {
 				List<String> intList = new ArrayList<>();
-				for (Integer i = 0; i < markings.get(marking).size(); i++) {
+				for (Integer i = 0; i < markings.get(marking).getValue().size(); i++) {
 					intList.add(i.toString());
 				}
-				constants.add(marking + "_choice");
+				//constants.add(marking + "_choice");
 				decPoints += "    " + marking + "_choice: {" + String.join(", ", intList) + "};\n";
 			}
 		}
@@ -173,6 +184,9 @@ public class NuXmvConvertor {
 			} else {
 				if (initialState.get(varName, null).getValType() == IntType.class) {
 					variables += "    var_" + varName + ": Integer;\n";
+					variableList.add(SimpleState.getInstanceIdentifier(varName, null));
+				}else if (initialState.get(varName, null).getValType() == BoolType.class) {
+					variables += "    var_" + varName + ": Boolean;\n";
 					variableList.add(SimpleState.getInstanceIdentifier(varName, null));
 				} else {
 					throw new RuntimeException("Shouldn't have non-integer variables: " + varName);
@@ -221,19 +235,35 @@ public class NuXmvConvertor {
 		// transitions
 		fileString += "TRANS\n";
 		String allTransitions = "(";
+		Set<Map.Entry<TransitionI, Map.Entry<String, Integer>>> guardFalse = new HashSet<>();
 		for (String marking: markings.keySet()){
 			int branchChoice = 0;
-			for (Map.Entry<TransitionI, MarkingI> edge: markings.get(marking)){
+			for (Map.Entry<TransitionI, MarkingI> edge: markings.get(marking).getValue()){
 				String transitionString = "\n    (";
-				if (markings.get(marking).size() > 1) {
-					transitionString += "    ((location = " + marking + ") & (" + marking + "_choice = " + branchChoice + ")) ->\n";
+				TransitionI t = edge.getKey();
+				String transRule = "(location = " + marking + ")";
+				if (m.getTGMap().hasGuard(t)){
+					String guard = subAttrs(m.getTGMap().getGuard(t)).toString();
+					guard = guard.replaceAll("&&", "&");
+					guard = guard.replaceAll("\\|\\|", "|");
+					guard = guard.replaceAll("==", "=");
+					guard = guard.replaceAll("true", "1>0");
+					guard = guard.replaceAll("false", "1<0");
+					transRule+= " & ("+guard+")";
+				}
+				if (!markings.get(marking).getKey()){
+					transRule = transRule+" & (" + marking + "_choice = " + branchChoice + ")";
+					if (m.getTGMap().hasGuard(t)){
+						guardFalse.add(Map.entry(t, Map.entry(marking, branchChoice)));
+					}
 					branchChoice += 1;
-				} else
-					transitionString += "    (location = " + marking + ") ->\n";
+				}
+				if (transRule.contains("&"))
+					transRule = "("+transRule+")";
+				transitionString += "    "+transRule+" ->\n";
 				transitionString += "        (";
 				transitionString += "\n        next(location) = " + id(edge.getValue()); // skip to next marking
 
-				TransitionI t = edge.getKey();
 				Set<String> annotatedVariables = new HashSet<>();
 				for (Annotation a : m.getTAMap().getAnnotations(t).getAnnotations()) {
 					String annotationVariable = SimpleState.getInstanceIdentifier(a.getVarID(), a.getIdentifier());
@@ -252,7 +282,7 @@ public class NuXmvConvertor {
 					allTransitions += "&\n" + transitionString;
 			}
 
-			if(markings.get(marking).size()==0){ // sink
+			if(markings.get(marking).getValue().size()==0){ // sink
 				String transitionString = "\n    (";
 				transitionString += "    (location = " + marking + ") ->\n";
 				transitionString += "        (";
@@ -268,6 +298,44 @@ public class NuXmvConvertor {
 					allTransitions += "&\n" + transitionString;
 			}
 		}
+		// for non-mutally exclusive guarded transition, create way out when guard is false but choice is true
+		for (Map.Entry<TransitionI, Map.Entry<String, Integer>> gF: guardFalse){
+			String transitionString = "\n    (";
+			String marking = gF.getValue().getKey();
+			Integer branchChoice = gF.getValue().getValue();
+			TransitionI t = gF.getKey();
+			String transRule = "(location = " + marking + ")";
+			String guard = subAttrs(m.getTGMap().getGuard(t)).toString();
+			guard = guard.replaceAll("&&", "&");
+			guard = guard.replaceAll("\\|\\|", "|");
+			guard = guard.replaceAll("==", "=");
+			guard = guard.replaceAll("true", "1>0");
+			guard = guard.replaceAll("false", "1<0");
+			transRule+= " & !("+guard+")";
+			transRule = transRule+" & (" + marking + "_choice = " + branchChoice + ")";
+
+			if (transRule.contains("&"))
+				transRule = "("+transRule+")";
+			transitionString += "    "+transRule+" ->\n";
+			transitionString += "        (";
+			transitionString += "\n        next(location) = location &";
+
+			List<String> remainingChoices = IntStream.rangeClosed(0, markings.get(marking).getValue().size()-1)
+					.boxed()
+					.filter(i->!i.equals(branchChoice))
+					.map(i->i.toString())
+					.collect(Collectors.toList());
+			String choiceList = String.join(",", remainingChoices);
+
+			transitionString += "\n        next("+marking + "_choice) = {"+choiceList+"}";
+
+			for (String variable : variableList) {
+				transitionString += " &\n        next(var_" + variable + ") = var_" + variable;
+			}
+			transitionString += "\n        )\n    )\n";
+			allTransitions+="&\n"+transitionString;
+		}
+
 		allTransitions += ")\n";
 		fileString += allTransitions;
 
@@ -353,30 +421,41 @@ public class NuXmvConvertor {
 		throw new RuntimeException("Unsupported annotation");
 	}
 
-	// assumes no loops
-	private static Map<String, List<Map.Entry<TransitionI, MarkingI>>> buildReachabilityGraph(PlaceTransitionNet pn) {
-		Map<String, List<Map.Entry<TransitionI, MarkingI>>> markings = new LinkedHashMap<>();
-		recurser(pn, pn.getInitialMarking(), markings);
+	// assumes no loops. entry key is true if options from marking are mutually exclusive
+	private static Map<String, Map.Entry<Boolean, List<Map.Entry<TransitionI, MarkingI>>>> buildReachabilityGraph(PlaceTransitionNet pn, Guards TGMap) {
+		Map<String, Map.Entry<Boolean, List<Map.Entry<TransitionI, MarkingI>>>> markings = new LinkedHashMap<>();
+		recurser(pn, TGMap, pn.getInitialMarking(), markings);
 		return markings;
 	}
 
-	static void recurser(PlaceTransitionNet pn, MarkingI m, Map<String, List<Map.Entry<TransitionI, MarkingI>>> markings) {
+	static void recurser(PlaceTransitionNet pn, Guards TGMap, MarkingI m, Map<String, Map.Entry<Boolean, List<Map.Entry<TransitionI, MarkingI>>>> markings) {
 		// check if already done this marking
 		for (String existing: markings.keySet()) { // hashcode not properly implemented for MarkingI, so do like this
 			if (id(m).equals(existing)) return;
 		}
 
 		List<Map.Entry<TransitionI, MarkingI>> next = new ArrayList<>();
-		markings.put(id(m), next);
 
+		List<BoolType> guards = new ArrayList<>();
 		for (TransitionI t: pn.getEnabledTransitions(m)){
 			MarkingI nextM = pn.fire(t, m);
 			next.add(Map.entry(t, nextM));
+			guards.add(TGMap.hasGuard(t)?TGMap.getGuard(t):new BoolVal(true));
 		}
+		Boolean mutualExclusive = guards.size()<=1;
+		if (guards.size()==2){
+			mutualExclusive = guards.get(0).equals(guards.get(1).negate());
+		}
+		if (!mutualExclusive){ // assert only one is non-true so if that guard is not met we can just redirect to any other
+			guards.removeIf(g->g.equals(new BoolVal(true)));
+			assertEquals(guards.size(), 1);
+		}
+
+		markings.put(id(m), Map.entry(mutualExclusive, next));
 
 		// once finished this marking, recurse
 		for (Map.Entry<TransitionI,MarkingI> entry: next){
-			recurser(pn, entry.getValue(), markings);
+			recurser(pn, TGMap, entry.getValue(), markings);
 		}
 	}
 }

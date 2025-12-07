@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+
+<Annotations>
+	<Transitions>
+		<Transition ID="start">
+			<Outcome
+				variable = "parentConsent"
+				identifier = "null"
+				operation =  ":="
+				value = "false"/>
+			<Outcome
+				variable = "sDoc"
+				identifier = "null"
+				operation =  ":="
+				value = "0"/>
+			<Outcome
+				variable = "age"
+				identifier = "null"
+				operation =  ":="
+				value = "-1"/>
+			<Outcome
+				variable = "idPoints"
+				identifier = "null"
+				operation =  ":="
+				value = "0"/>
+			<Outcome
+				variable = "accountActive"
+				identifier = "null"
+				operation =  ":="
+				value = "false"/>
+			<Outcome
+				variable = "pDoc"
+				identifier = "null"
+				operation =  ":="
+				value = "0"/>
+		</Transition>
+		<Transition ID="parConsent">
+			<Guard Condition="age&lt;18"/>
+			<Outcome
+				variable = "parentConsent"
+				identifier = "null"
+				operation =  ":="
+				value = "{true, false}"/>
+		</Transition>
+		<Transition ID="accCreate">
+			<Outcome
+				variable = "accountActive"
+				identifier = "null"
+				operation =  ":="
+				value = "true"/>
+		</Transition>
+		<Transition ID="fail">
+			<Outcome
+				variable = "accountActive"
+				identifier = "null"
+				operation =  ":="
+				value = "false"/>
+		</Transition>
+		<Transition ID="ageCalc">
+			<Guard Condition="idPoints>=100"/>
+			<Outcome
+				variable = "age"
+				identifier = "null"
+				operation =  ":="
+				value = "[0,125]"/>
+		</Transition>
+		<Transition ID="pDoc">
+			<Guard Condition="pDoc==0"/>
+			<Outcome
+				variable = "pDoc"
+				identifier = "null"
+				operation =  "+"
+				value = "1"/>
+			<Outcome
+				variable = "idPoints"
+				identifier = "null"
+				operation =  "+"
+				value = "70"/>
+		</Transition>
+		<Transition ID="sDoc">
+			<Outcome
+				variable = "idPoints"
+				identifier = "null"
+				operation =  "+"
+				value = "{25, 35, 40}"/>
+			<Outcome
+				variable = "sDoc"
+				identifier = "null"
+				operation =  "+"
+				value = "1"/>
+		</Transition>
+		<Transition ID="loop">
+			<Guard Condition="idPoints&lt;100"/>
+		</Transition>
+		<Transition ID="clearData">
+			<Outcome
+				variable = "idPoints"
+				identifier = "null"
+				operation =  ":="
+				value = "0"/>
+			<Outcome
+				variable = "pDoc"
+				identifier = "null"
+				operation =  ":="
+				value = "0"/>
+			<Outcome
+				variable = "sDoc"
+				identifier = "null"
+				operation =  ":="
+				value = "0"/>
+		</Transition>
+		<Transition ID="idFail">
+		</Transition>
+		<Transition ID="overAge">
+			<Guard Condition="age &gt;= 18"/>
+		</Transition>
+		<Transition ID="approved">
+			<Guard Condition="parentConsent==true"/>
+		</Transition>
+		<Transition ID="consFail">
+			<Guard Condition="parentConsent==false"/>
+		</Transition>
+	</Transitions>
+</Annotations>

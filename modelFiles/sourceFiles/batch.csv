@@ -35,3 +35,5 @@ Experiment,Pnml,Annotations,Obligations,Notes
 1An_kg4m_U3_W3_v,./1An_kg4m/1An_kg4m.pnml,./1An_kg4m/1An_kg4m_U3_W3_v.xml,./1An_kg4m/obligations.xml,
 1An_kg4m_U10_W3,./1An_kg4m/1An_kg4m.pnml,./1An_kg4m/1An_kg4m_U10_W3.xml,./1An_kg4m/obligations.xml,
 1An_kg4m_U10_W3_v,./1An_kg4m/1An_kg4m.pnml,./1An_kg4m/1An_kg4m_U10_W3_v.xml,./1An_kg4m/obligations.xml,
+example,./example/model.pnml,./example/annotations.xml,./example/obligations.xml,
+example_v,./example/model.pnml,./example/annotations.xml,./example/obligations_v.xml,
