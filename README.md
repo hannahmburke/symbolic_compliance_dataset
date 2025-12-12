@@ -24,4 +24,4 @@ The experiments can be visualised directly at [damocles-analysis.com](https://da
 	- **`commands/`**: Each method type with associated command SMV files for each experiment.  
 
 - **`websiteInfo/`**: Information on visualizing experiments on the website:  
-	- **`info.md`**: Instructions for using the website to visualize experiments.
+	- **`README.md`**: Instructions for using the website to visualize experiments.

@@ -4,41 +4,41 @@
 
 The model is created by uploading 3 files
 
-![File menu](/content/images/file.png)
+![File menu](/images/file.png)
 - petrinet
 - annotations (write operations and guard conditions) 
 - obligations
 
 They must come from the same folder to be compatible
 
-![File options](/content/images/files.png)
+![File options](/images/files.png)
 
   
 ## Model view
-![Model view](/content/images/model.png)
+![Model view](/images/model.png)
 
 Once all files are uploaded, the petrinet and annotations will be rendered in the left pane.
 Larger petrinets can be navigated through the zoom in/out buttons and scrolling
 
 ## Execution view
-![Execution view](/content/images/executions.png)
+![Execution view](/images/executions.png)
 
 The list of executions associated to the petrinet will be shown in the top right pane. 
 For petrinets with a larger number of executions, this table can be scrolled. 
 
 If petrinet has loops, the number of executions is infinite and therefore cannot be generated. Instead, there is an option to select a fairness value from 1-5, which limits the number of times the loop can be repeated, and the resulting executions will be displayed. 
 
-![Fairness selection](/content/images/fairness.png)
+![Fairness selection](/images/fairness.png)
 
 ## Obligation view
-![Obligation view](/content/images/obligations.png)
+![Obligation view](/images/obligations.png)
 
 The list of obligations associated to the model will be shown in the bottom right pane. 
 Obligations must contain unique IDs, and have type either achievement or maintenance.
 The three conditions (trigger, requirement and deadline) affect the obligation's state depending on the type's automata (given in paper). 
 
 ## Analysis
-![Analysis menu](/content/images/analyse.png)
+![Analysis menu](/images/analyse.png)
 
 The analysis menu allows users to run our symbolic compliance checker to determine the compliance. There are two options:
 - Fast fail
@@ -50,7 +50,7 @@ The analysis menu allows users to run our symbolic compliance checker to determi
   - When ready, the menu bar will show a button to enter the visualisation view 
 
 ## Visualisation
-![Visualisation](/content/images/visualisation.png)
+![Visualisation](/images/visualisation.png)
 
 In the visualsation view, the left pane shows the analysis tree. 
 Each column in the tree is a transition in the selected execution, with branches showing different states of the selected obligation instance.
@@ -70,8 +70,8 @@ This creates a branch in the idPointsMin obligation after the secondary upload, 
 However, the subsequent transition ageCalc is guarded by idPoints>=100. And so the branch containing 95 reaches a deadend on this execution. 
 Instead, that interpretation would be found on executions of the same prefix that instead go back into the loop. We see this in the visualisation below. 
 
-![Deadend branch](/content/images/deadend.png)
+![Deadend branch](/images/deadend.png)
 
 To return back to the model uploader page, click the model button in the top right.
 
-![back](/content/images/back.png)
+![back](/images/back.png)
