@@ -1,9 +1,6 @@
 # Dataset Repository for Symbolic Compliance
 
-This repository contains the dataset for the paper:  
-
-> **"A First and Fast Symbolic Approach for Data-Aware Business Process Compliance Checking"**  
-> *Authors: Silvano Colombo Tosatto, Hannah Burke, Nick van Beest, Heerko Groefsema* 
+This repository contains the dataset for the paper: [https://doi.org/10.1016/j.infsof.2026.108047]
 
 The experiments can be visualised directly at [damocles-analysis.com](https://damocles-analysis.com) (if files are not showing directly in website, please do a hard reset)
  
